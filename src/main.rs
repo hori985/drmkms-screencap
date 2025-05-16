@@ -1,11 +1,11 @@
 mod card;
-use drm_ffi as ffi;
+mod utils;
+// use std::{os::unix::io::{AsFd, BorrowedFd}};
 
-use std::{num::NonZero, os::unix::io::{AsFd, BorrowedFd}};
-
-use drm::control::{connector, crtc, plane, PlaneType};
+use drm::control::{connector, crtc, plane};
 
 use crate::card::*;
+use crate::utils::*;
 
 fn get_active_connector(card : &Card) -> Option<connector::Info>{
     let resources = card.resource_handles().unwrap();
@@ -93,4 +93,10 @@ pub fn main() {
 
     println!("FB: \n{:#?}", fb);
     println!("\n");
+
+    // println!("\n\nALL RESOURCES:\n");
+    // list_resources(&card);
+
+    // println!("\n\nALL PROPERTIES:\n");
+    // list_all_properties(&card);
 }
